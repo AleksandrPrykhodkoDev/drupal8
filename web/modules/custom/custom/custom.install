@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function custom_schema() {
+  $schema['user_facing'] = [
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+      ],
+      'total_price' => [
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id']
+  ];
+
+  return $schema;
+}
