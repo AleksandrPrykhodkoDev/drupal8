@@ -5,7 +5,7 @@ namespace Drupal\custom\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
-use \Drupal\Core\Ajax\AlertCommand;
+use Drupal\Core\Ajax\AlertCommand;
 
 class UserFacingForm extends FormBase {
 
@@ -71,7 +71,7 @@ class UserFacingForm extends FormBase {
         'placeholder' => $this->t('Total price'),
         'readonly' => 'readonly',
         'id' => $ajax_wrapper,
-      ]
+      ],
     ];
 
     $form['actions']['#type'] = 'actions';
@@ -79,10 +79,6 @@ class UserFacingForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Save'),
     ];
-
-    $configuration_form = \Drupal::config('custom.settings');
-    $fixed_price = $configuration_form->get('fixed_price');
-    $var_price = $configuration_form->get('var_price');
 
     return $form;
   }
@@ -123,7 +119,6 @@ class UserFacingForm extends FormBase {
     if ($form_state->getValue('Age') == 0) {
       $response = new AjaxResponse();
       $response->addCommand(new AlertCommand('You must be at least 20 years old.'));
-
       return $response;
     }
 
