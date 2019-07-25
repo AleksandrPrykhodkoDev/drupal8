@@ -1,9 +1,8 @@
-uuid: 13d0418e-e159-4d73-af34-3f1f11e438d2
+uuid: 7fac0bef-0be4-4fe9-afa2-c0236edbbbbb
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
@@ -21,15 +20,6 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 1
-    region: content
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
   comment:
     type: comment_default
     weight: 20
@@ -103,4 +93,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  body: true
