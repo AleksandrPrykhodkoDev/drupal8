@@ -1,4 +1,4 @@
-uuid: cfc32887-5299-4de3-904e-6f6a97e272be
+uuid: 6aa7610d-638b-4d73-a915-0d4d8e7cbaa8
 langcode: en
 status: true
 dependencies:
@@ -509,7 +509,7 @@ display:
         - url
         - url.query_args
         - user.permissions
-      max-age: -1
+      max-age: 0
       tags: {  }
   page_1:
     display_plugin: page
@@ -534,5 +534,5 @@ display:
         - url
         - url.query_args
         - user.permissions
-      max-age: -1
+      max-age: 0
       tags: {  }

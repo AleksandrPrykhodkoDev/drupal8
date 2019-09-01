@@ -1,9 +1,10 @@
-uuid: 71e3da20-00b5-430e-8cc7-ed2c71ccf049
+uuid: f6d8388b-c9ce-40bb-823d-5b7041b40a84
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_display.comment.comment.default
+    - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
@@ -21,6 +22,13 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
+  body:
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+    label: hidden
   comment:
     type: comment_default
     weight: 110
@@ -52,5 +60,4 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden:
-  body: true
+hidden: {  }
