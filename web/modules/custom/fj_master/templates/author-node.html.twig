@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Theme template for AuthorNodeBlock.
+ *
+ * Available variables:
+ * - author: Author of node.
+ * - author_picture: Author picture.
+ * - summary: Author summary text.
+ */
+#}
+<div class="author-block container">
+  {% if author_picture %}
+    <div class="author-picture">
+      <img src="{{ author_picture }}" width="124" height="124">
+    </div>
+  {% endif %}
+  <div class="author-info">
+    <div class="name">
+      {{ author }}
+    </div>
+    <div class="summary">
+      {{ summary }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+name: SmallSteps Common
+type: module
+description: Contains main Settings and Tweaks.
+core: 8.x
+package: SmallSteps

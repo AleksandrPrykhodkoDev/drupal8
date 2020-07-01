@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme template for CaseStudyHeaderBlock.
+ *
+ * Available variables:
+ * - title: Case stydy node title.
+ * - image_url: Direct URL of Header image.
+ * - base_path: Path to site.
+ */
+#}
+<div class="cover-small-header" style="
+    background:
+      linear-gradient(
+      to bottom,
+      rgba(42, 42, 42, 0.5) 0%,
+      rgba(42, 42, 42, 0.5) 100%
+      ),
+      linear-gradient(
+      to bottom,
+      rgba(42, 42, 42, 0.5) 0%,
+      rgba(42, 42, 42, 0.5) 100%
+      ),
+      linear-gradient(
+      to bottom,
+      rgba(42, 42, 42, 0.5) 0%,
+      rgba(42, 42, 42, 0.5) 100%
+      ),
+      url('{{ image_url }}') no-repeat center center;
+    background-size: cover;">
+  <svg preserveAspectRatio="none" viewBox="0 0 100 100" class="cover-small-svg">
+    <path fill="#FFFFFF" d="M0 100 V85 Q25 112.5 50 87.5 T100 87.5 V100z"></path>
+  </svg>
+
+  <h1 class="cover-small-title">
+    {{ title }}
+  </h1>
+</div>

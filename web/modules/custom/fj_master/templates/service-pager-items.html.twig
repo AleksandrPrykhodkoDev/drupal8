@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Theme template for ServicePagerBlock.
+ *
+ * Available variables:
+ * - previous: Direct URL of the previous service node.
+ * - next: Direct URL of the next service node.
+ */
+#}
+{% if previous is not empty and next is not empty %}
+  {% set both = "both" %}
+{% else %}
+  {% set both = "" %}
+{% endif %}
+
+<div class="clearfix container service-pager--items {{ both }}">
+  {% if previous is not empty %}
+    <span class="service-pager--previous service-pager--item">
+      {{ previous }}
+    </span>
+  {% endif %}
+
+  {% if both == "both" %}
+    <span class="service-pager--devider">/</span>
+  {% endif %}
+
+  {% if next is not empty %}
+    <span class="service-pager--next service-pager--item">
+      {{ next }}
+    </span>
+  {% endif %}
+</div>

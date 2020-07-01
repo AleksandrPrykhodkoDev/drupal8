@@ -1,0 +1,25 @@
+ss_common:
+  version: VERSION
+  js:
+    js/custom.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+gmap:
+  version: 1.x
+  js:
+    https://maps.googleapis.com/maps/api/js?key=AIzaSyCy-XCjtgKRuUaHEsow2XaSEX4idapIcK4: { type: external }
+    js/google.maps.infobox.js: {}
+    js/google.maps.oms.js: {}
+
+search:
+  version: 1.x
+  js:
+    js/search-form.js: {}
+  dependencies:
+    - ss_common/gmap
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.ui.autocomplete

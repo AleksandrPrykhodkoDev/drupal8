@@ -1,0 +1,53 @@
+system.admin_structure.smallsteps:
+  title: Settings of specific pages and content
+  description: 'Smallsteps settings'
+  route_name: system.admin_structure.smallsteps
+  parent: system.admin_structure
+
+ss_common.frontpage.admin.structure.settings:
+  title: Homepage
+  description: 'Configure Frontpage main elements'
+  route_name: ss_common.frontpage.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.social.admin.structure.settings:
+  title: Social media (generic)
+  description: 'Configure Social elements'
+  route_name: ss_common.social.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.services.admin.structure.settings:
+  title: Link for sending completed data from forms
+  description: 'Configure Services elements'
+  route_name: ss_common.services.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.contact.admin.structure.settings:
+  title: Contact page
+  description: 'Configure Contact page elements'
+  route_name: ss_common.contact.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.existingcustomers.admin.structure.settings:
+  title: Existing customers page
+  description: 'Configure Existing Customers page elements'
+  route_name: ss_common.existingcustomers.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.thankyoupage.admin.structure.settings:
+  title: Thank you pages
+  description: 'Configure Thank You pages for custom forms'
+  route_name: ss_common.thankyoupage.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.footer.admin.structure.settings:
+  title: Footer
+  description: 'Configure footer text'
+  route_name: ss_common.footer.settings
+  parent: system.admin_structure.smallsteps
+
+ss_common.meeting.admin.structure.settings:
+  title: Ocbijeenkomst page
+  description: 'Configure ocbijeenkomst page text'
+  route_name: ss_common.meeting.settings
+  parent: system.admin_structure.smallsteps

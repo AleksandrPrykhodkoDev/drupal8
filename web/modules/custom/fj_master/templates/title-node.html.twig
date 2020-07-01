@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme template for TitleNodeBlock.
+ *
+ * Available variables:
+ * - author: Author of node.
+ * - title: Title of node.
+ * - created_date: Date of create node.
+ * - category: Field category.
+ */
+#}
+<div class="title-block container">
+  <h1 class="title">
+    {{ title }}
+  </h1>
+  <div class="subtitle">
+    <div class="date">
+      {{ 'Posted: '|t }}{{ created_date }}
+    </div>
+    <div class="author">
+      {{ 'By: '|t }}{{ author }}
+    </div>
+    {% if category %}
+      <div class="category">
+        {{ 'Category: '|t }}{{ category }}
+      </div>
+    {% endif %}
+  </div>
+</div>

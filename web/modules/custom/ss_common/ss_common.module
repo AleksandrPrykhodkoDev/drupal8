@@ -1,0 +1,56 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\editor\Entity\Editor;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_form_alter() on behalf of ss_common.module.
+ */
+function ss_common_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_generic_page_form') {
+    $form['#attached']['library'][] = 'ss_common/ss_common';
+
+    $form['top_actions'] = $form['actions'];
+    $form['top_actions']['#weight'] = -50;
+    $form['top_actions']['delete']['#access'] = FALSE;
+  }
+
+  if ($form_id == 'node_generic_page_edit_form') {
+    $form['#attached']['library'][] = 'ss_common/ss_common';
+
+    $form['top_actions'] = $form['actions'];
+    $form['top_actions']['#weight'] = -50;
+    $form['top_actions']['delete']['#access'] = FALSE;
+  }
+
+  if ($form_id == 'ss_common_search_location_form__2') {
+    $form['#attached']['library'][] = 'ss_common/search';
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function ss_common_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $parents = isset($element['#field_parents']) ? $element['#field_parents'] : array();
+  $parents = array_map(function($piece){
+    return (string) $piece;
+  }, $parents);
+
+  if (isset($element['title']) && in_array('field_page_sections', $parents)) {
+    $element['title']['#title'] = t('Button text');
+  }
+
+  if (in_array('field_page_sections', $parents) && isset($element['value']) && $element['value']['#title'] == 'Choose campaign') {
+    $element['value']['#type'] = 'select';
+    $element['value']['#empty_option'] = t('- None -');
+    $element['value']['#options'] = ss_location_get_campaigns_list();
+    $element['value']['#multiple'] = FALSE;
+    unset($element['value']['#maxlength'], $element['value']['#size']);
+  }
+}
+
+function ss_common_ckeditor_css_alter(array &$css, Editor $editor) {
+  $css[] = drupal_get_path('module', 'ss_common') . '/css/styles.css';
+}

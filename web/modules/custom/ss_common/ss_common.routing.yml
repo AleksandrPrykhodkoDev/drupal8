@@ -1,0 +1,73 @@
+system.admin_structure.smallsteps:
+  path: '/admin/structure/smallsteps'
+  menu_name: 'admin'
+  title: 'Settings of specific pages and content'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Settings of specific pages and content'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.frontpage.settings:
+  path: '/admin/structure/smallsteps/front-page-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\FrontPageSettings'
+    _title: 'Homepage'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.social.settings:
+  path: '/admin/structure/smallsteps/social-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\SocialSettings'
+    _title: 'Social media (generic)'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.contact.settings:
+  path: '/admin/structure/smallsteps/contact-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\ContactSettings'
+    _title: 'Contact page'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.existingcustomers.settings:
+  path: '/admin/structure/smallsteps/existing-customers-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\ExistingCustomersSettings'
+    _title: 'Existing customers page'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.services.settings:
+  path: '/admin/structure/smallsteps/services-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\ServicesSettings'
+    _title: 'Link for sending completed data from forms'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.thankyoupage.settings:
+  path: '/admin/structure/smallsteps/thank-you-page-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\ThankYouPageSettings'
+    _title: 'Thank you pages'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.footer.settings:
+  path: '/admin/structure/smallsteps/footer-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\FooterSettings'
+    _title: 'Footer'
+  requirements:
+    _permission: 'access administration pages'
+
+ss_common.meeting.settings:
+  path: '/admin/structure/smallsteps/meeting-settings'
+  defaults:
+    _form: '\Drupal\ss_common\Form\MeetingSettings'
+    _title: 'Ocbijeenkomst page'
+  requirements:
+    _permission: 'access administration pages'

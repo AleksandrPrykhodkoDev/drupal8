@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Angelina';
+    src: url('/themes/smallsteps/fonts/Angelina/angelina.eot');
+    src: local('angelina'),
+    url('/themes/smallsteps/fonts/Angelina/angelina.woff') format('woff'),
+    url('/themes/smallsteps/fonts/Angelina/angelina.ttf') format('truetype');
+}
+
+@font-face{
+    font-family:"ITC Avant Garde Gothic XLt";
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/bb532a97-09a6-421b-a039-16e33f77f2be.eot?#iefix");
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/bb532a97-09a6-421b-a039-16e33f77f2be.eot?#iefix") format("eot"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/be3b68e0-e643-45fd-b4b2-faf775f6154b.woff2") format("woff2"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/28fe58dd-9ce3-4160-a0b0-01ac60011919.woff") format("woff"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/47394f13-b251-417e-a630-ec9cabee8353.ttf") format("truetype"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/e9a80b55-223e-4b3b-87f6-b8706a447f46.svg#e9a80b55-223e-4b3b-87f6-b8706a447f46") format("svg");
+}
+@font-face{
+    font-family:"ITC Avant Garde Gothic Bk";
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/e2108c52-6f74-4dfa-85d6-db816d23f019.eot?#iefix");
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/e2108c52-6f74-4dfa-85d6-db816d23f019.eot?#iefix") format("eot"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/8bf59539-e73d-40bc-99bb-47491d253b56.woff2") format("woff2"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/aaa23783-21a8-4607-adc1-28fd7a7f4455.woff") format("woff"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/5512ab7c-9829-41c3-add6-9491aadab6ba.ttf") format("truetype"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/0e357b41-9b1c-4660-b2d0-cf8a29891949.svg#0e357b41-9b1c-4660-b2d0-cf8a29891949") format("svg");
+}
+@font-face{
+    font-family:"ITC Avant Garde Gothic Md";
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/9243d1c9-dbe9-46ad-8486-d794d7b007f0.eot?#iefix");
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/9243d1c9-dbe9-46ad-8486-d794d7b007f0.eot?#iefix") format("eot"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/e6f0d927-8819-4091-918e-e9bb6827b022.woff2") format("woff2"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/1e67a9a6-e8cd-492b-9b6e-ee8f76d75736.woff") format("woff"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/14ccae78-0249-4c90-9524-c4303c65e08c.ttf") format("truetype"),url("/themes/smallsteps/fonts/ITCAvantGardeGothic/b0be2b9f-2589-4812-ad8b-dce24b2de635.svg#b0be2b9f-2589-4812-ad8b-dce24b2de635") format("svg");
+}
+@font-face{
+    font-family:"ITC Avant Garde Gothic Black";
+    src:url("/themes/smallsteps/fonts/ITCAvantGardeGothic/ITC Avant Garde Gothic LT Bold.otf?#iefix");
+}

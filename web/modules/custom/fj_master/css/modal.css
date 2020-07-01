@@ -1,0 +1,90 @@
+form[class^="layout-builder-"][class$="-block"] {
+  font: normal 81.3%/1.538em "Open Sans", sans-serif;
+}
+
+[class^="layout-builder-"][class$="-block"] thead th {
+  background: #f5f5f2;
+  border: none;
+  color: #909090;
+  font-size: 0.91rem;
+  font-weight: 500;
+  text-transform: none;
+}
+
+[class^="layout-builder-"][class$="-block"] thead th.is-active {
+  background: #fff;
+  border: 1px solid #e6e4df;
+  border-bottom: 1px solid #fff;
+}
+
+[class^="layout-builder-"][class$="-block"] th.is-active > a,
+[class^="layout-builder-"][class$="-block"] th.is-active > a:hover {
+  color: #333;
+}
+
+[class^="layout-builder-"][class$="-block"] th > a:hover {
+  text-decoration: underline;
+}
+
+[class^="layout-builder-"][class$="-block"] th > a:after,
+[class^="layout-builder-"][class$="-block"] th.is-active > a:after {
+  display: none;
+}
+
+[class^="layout-builder-"][class$="-block"] thead > tr {
+  border-bottom: 1px solid #e6e4df;
+}
+
+[class^="layout-builder-"][class$="-block"] .button {
+  background-color: #f9f9f9;
+  border-radius: 0;
+  text-shadow: none;
+  transition: all, 0.2s;
+}
+
+[class^="layout-builder-"][class$="-block"] .button:hover,
+[class^="layout-builder-"][class$="-block"] .button:focus {
+  background-color: #FFFFFF;
+  border-color: #008ee6;
+}
+
+[class^="layout-builder-"][class$="-block"] .button-action:before {
+  display: none;
+}
+
+[class^="layout-builder-"][class$="-block"] select {
+  min-height: 28px;
+  text-shadow: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  [class^="layout-builder-"][class$="-block"] select {
+    border-radius: 0;
+  }
+
+  [class^="layout-builder-"][class$="-block"] select:focus {
+    border-color: #68a3cf;
+    color: #000;
+    outline: 2px solid #C1E0FF;
+    outline-offset: 0;
+  }
+}
+
+[class^="layout-builder-"][class$="-block"] a.tabledrag-handle .handle {
+  padding: 1em 1em;
+}
+
+[class^="layout-builder-"][class$="-block"]  label {
+  display: table;
+  margin: 0 0 0.2em;
+  padding: 0;
+  font-weight: bold;
+}
+
+[class^="layout-builder-"][class$="-block"] div.description,
+[class^="layout-builder-"][class$="-block"] .form-item .description {
+  margin: 0.2em 0 0 0;
+  color: #595959;
+}
+
+

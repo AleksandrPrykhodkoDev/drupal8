@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Module for alters and preprocess functions.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements template_preprocess_views_view_grid().
+ *
+ * @param array $variables
+ *   An associative array with variables.
+ */
+function fj_master_preprocess_views_view_grid(array &$variables) {
+  // Add class attributes for image entity browser.
+  if ($variables['view']->storage->id() == 'images_library' ||
+    $variables['view']->storage->id() == 'videos_library') {
+    foreach ($variables['items'] as &$item) {
+      foreach ($item['content'] as &$column) {
+        $column['attributes']['data-selectable'] = 'true';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fj_master_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  switch ($form_id) {
+    case 'entity_browser_images_library_form':
+    case 'entity_browser_images_library_embed_form':
+    case 'entity_browser_video_library_form':
+    case 'entity_browser_video_library_embed_form':
+      // Attach library for entity browser.
+      $form['#attached']['library'][] = 'fj_master/entitybrowser';
+      break;
+
+    case 'layout_builder_add_block':
+    case 'layout_builder_update_block':
+      // Attach library for layout buider forms.
+      $form['#attached']['library'][] = 'fj_master/modal';
+      break;
+
+    case 'views_exposed_form':
+      // Rename 'All' item value.
+      if ($form['#id'] == 'views-exposed-form-case-study-listing-block-1') {
+        $form['category']['#options']['All'] = t('All');
+      }
+      break;
+
+    case 'node_landing_page_form':
+    case 'node_landing_page_edit_form':
+    case 'node_article_form':
+    case 'node_article_edit_form':
+    case 'node_case_study_form':
+    case 'node_case_study_edit_form':
+    case 'node_service_form':
+    case 'node_service_edit_form':
+    case 'node_page_form':
+    case 'node_page_edit_form':
+      // Move SEO image to sidebar meta tags section.
+      $form['field_seo_image']['#group'] = 'advanced';
+      break;
+
+    case (preg_match("/^webform_submission_subscription.*add_form\$/", $form_id) ? TRUE : FALSE):
+      // Move subscription webform progress indicator below action buttons.
+      $form['actions']['#weight'] = 10;
+      $form['progress']['#weight'] = 20;
+      break;
+
+  }
+
+  if (isset($form['#webform_id']) && $form['#webform_id'] == 'contact') {
+    $country = $form['elements']['country']['#options']['United States'];
+    unset($form['elements']['country']['#options']['United States']);
+    array_unshift($form['elements']['country']['#options'], $country);
+  }
+
+}
+
+/**
+ * Implements hook_entity_embed_alter().
+ */
+function fj_master_entity_embed_alter(array &$build, EntityInterface $entity, array &$context) {
+  if (!isset($context['data-widget']) || $context['data-widget'] != 'drupalentity') {
+    return;
+  }
+  $view_mode = $build['#context']['data-entity-embed-display'];
+  switch ($view_mode) {
+    case 'view_mode:media.embedded_full':
+      $build['#context']['data-entity-embed-display'] = 'view_mode:media.full_without_blazy';
+      $build['entity']['#view_mode'] = 'full_without_blazy';
+      break;
+
+    case 'view_mode:media.embedded_half':
+      $build['#context']['data-entity-embed-display'] = 'view_mode:media.half_without_blazy';
+      $build['entity']['#view_mode'] = 'half_without_blazy';
+      break;
+  }
+}
+
+/**
+ * Implements hook_toolbar_alter().
+ */
+function fj_master_toolbar_alter(&$items) {
+  $items['administration']['#attached']['library'][] = 'fj_master/toolbar';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fj_master_theme() {
+  $theme = [];
+
+  $theme['service_pager_items'] = [
+    'template' => 'service-pager-items',
+    'variables' => [
+      'previous' => NULL,
+      'next' => NULL,
+    ],
+  ];
+
+  $theme['case_study_header'] = [
+    'template' => 'case-study-header',
+    'variables' => [
+      'title' => NULL,
+      'image_url' => NULL,
+      'base_path' => base_path(),
+    ],
+  ];
+
+  $theme['title_node'] = [
+    'template' => 'title-node',
+    'variables' => [
+      'title' => NULL,
+      'author' => NULL,
+      'created_date' => NULL,
+      'category' => NULL,
+    ],
+  ];
+
+  $theme['author_node'] = [
+    'template' => 'author-node',
+    'variables' => [
+      'author' => NULL,
+      'author_picture' => NULL,
+      'summary' => NULL,
+    ],
+  ];
+
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block templates.
+ */
+function fj_master_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (isset($variables['elements']['content']['#block_content']) && $variables['elements']['#base_plugin_id'] == 'block_content') {
+    $type = $variables['elements']['content']['#block_content']->get('type')->target_id;
+    $suggestions[] = 'block__' . $variables['elements']['#base_plugin_id'] . '__' . $type;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ */
+function fj_master_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+  if ($variables["element"]["#form_id"] == 'user_login_form') {
+    $suggestions[] = 'form__user_login_form';
+  }
+}

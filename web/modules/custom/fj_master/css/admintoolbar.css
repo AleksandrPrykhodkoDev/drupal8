@@ -1,0 +1,29 @@
+.adminimal-admin-toolbar .toolbar-tray .tabs a {
+  padding: 1em 1em;
+}
+.adminimal-admin-toolbar .toolbar-tray .tabs > li {
+  display: block;
+  margin-right: 0;
+}
+
+.adminimal-admin-toolbar .toolbar-tray ul.tabs {
+  margin: 0;
+}
+
+.adminimal-admin-toolbar .toolbar .toolbar-tray a.is-active {
+  color: initial;
+}
+
+.adminimal-admin-toolbar .toolbar-tray .tabs a:not(.is-active) {
+  background-color: transparent;
+}
+
+.adminimal-admin-toolbar .toolbar-tray-horizontal .tabs a:hover,
+.adminimal-admin-toolbar .toolbar-tray-horizontal .tabs a:focus,
+.adminimal-admin-toolbar .toolbar-tray-horizontal .tabs a:active,
+.adminimal-admin-toolbar .toolbar .toolbar-tray-vertical .tabs a:hover,
+.adminimal-admin-toolbar .toolbar .toolbar-tray-vertical .tabs a:focus,
+.adminimal-admin-toolbar .toolbar .toolbar-tray-vertical .tabs a:active {
+  background: #0084d7;
+  color: #fff;
+}

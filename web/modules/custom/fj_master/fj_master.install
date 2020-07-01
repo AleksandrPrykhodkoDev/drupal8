@@ -1,0 +1,452 @@
+<?php
+
+/**
+ * @file
+ * This module holds hook_update functions.
+ */
+
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\user\Entity\User;
+use Drupal\embed\Entity\EmbedButton;
+use Drupal\file\Entity\File;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Add footer content.
+ */
+function fj_master_update_8001() {
+  // Add social links to menu.
+  $items = [
+    0 => [
+      'title' => t('Facebook'),
+      'link' => 'https://www.facebook.com/5jars',
+      'menu_name' => 'social-link',
+      'bundle' => 'menu_link_content',
+    ],
+    1 => [
+      'title' => t('Instagram'),
+      'link' => 'https://www.instagram.com/five_jars',
+      'menu_name' => 'social-link',
+      'bundle' => 'menu_link_content',
+    ],
+    2 => [
+      'title' => t('Linkedin'),
+      'link' => 'https://www.linkedin.com/company/fivejars',
+      'menu_name' => 'social-link',
+      'bundle' => 'menu_link_content',
+    ],
+  ];
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('menu_link_content');
+
+  foreach ($items as $item) {
+    $menu = $storage->create($item);
+    $menu->save();
+  }
+
+  // Add offices.
+  $items = [
+    [
+      'name' => 'Five Jars Ukraine',
+      'vid' => 'offices',
+      'field_email' => 'ua-office@fivejars.com',
+      'field_phone' => '+38 (066) 74-76-760',
+      'description' => [
+        'value' => '<p>Chervonotkatska St. 27/2 Office 4.</p><p>Kyiv, 02094</p>',
+        'format' => 'full_html',
+      ],
+    ],
+    [
+      'name' => 'Five Jars USA',
+      'vid' => 'offices',
+      'field_email' => 'us-office@fivejars.com',
+      'field_phone' => '+1 (866) 654-32-45',
+      'description' => [
+        'value' => '<p>11E 26th St. New-York,</p><p>NY 10010, NY</p>',
+        'format' => 'full_html',
+      ],
+    ],
+  ];
+
+  foreach ($items as $item) {
+    Term::create($item)->save();
+  }
+}
+
+/**
+ * Add embed image icon.
+ */
+function fj_master_update_8002() {
+  $icon = \Drupal::moduleHandler()->getModule('fj_master')->getPath() . '/assets/image.png';
+  $fs = \Drupal::service('file_system');
+  $destination = file_unmanaged_copy($icon, 'public://' . $fs->basename($icon));
+
+  if ($destination) {
+    $file = File::create(['uri' => $destination]);
+    $file->save();
+
+    EmbedButton::load('embed_image')
+      ->set('icon_uuid', $file->uuid())
+      ->save();
+  }
+}
+
+/**
+ * Add font color field to background preset.
+ */
+function fj_master_update_8003() {
+  $ids = \Drupal::entityQuery('section_preset')
+    ->condition('type', 'background')
+    ->sort('id')
+    ->execute();
+
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('section_preset');
+  $items = $storage->loadMultiple($ids);
+
+  foreach ($items as $item) {
+    // Set white color for already existing items.
+    $item->set('field_font_color', 'text-white');
+    $item->save();
+  }
+
+  // Create About us background preset.
+  $new_preset = $storage->create([
+    'name' => 'About us',
+    'type' => 'background',
+    'field_position' => 'bottom',
+    'field_size' => 'cover',
+    'field_font_color' => 'text-dark',
+  ]);
+  $new_preset->save();
+}
+
+/**
+ * Create FJ team users.
+ */
+function fj_master_update_8004() {
+  $weight = -20;
+  $theme_img_path = drupal_get_path('theme', 'fj') . '/build/images/team/';
+  $users = [
+    'alexschedrov' => [
+      'email' => 'alex.schedrov@fivejars.com',
+      'full_name' => 'Alex Schedrov',
+      'position' => 'CEO and Co‑Founder',
+      'role' => 'administrator',
+      'user_picture' => 'Alex.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/alexschedrov',
+        'https://www.facebook.com/alexschedrov',
+        'https://www.instagram.com/alexschedrov',
+      ],
+    ],
+    'ddrozdik' => [
+      'email' => 'dmitry.drozdik@fivejars.com',
+      'full_name' => 'Dmitry Drozdik',
+      'position' => 'COO and Co‑Founder',
+      'role' => 'administrator',
+      'user_picture' => 'Dima.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/dmitrydrozdik',
+        'https://www.facebook.com/dmitry.drozdik',
+        'https://www.instagram.com/dmitry_drozdik',
+      ],
+    ],
+    'savaggeq' => [
+      'email' => 'andrey.maximov@fivejars.com',
+      'full_name' => 'Andrey Maximov',
+      'position' => 'CTO',
+      'role' => 'administrator',
+      'user_picture' => 'mr. maximov.jpg',
+      'links' => [
+        'https://www.facebook.com/mr.andrey.maximov',
+        'https://www.instagram.com/savaggeq',
+      ],
+    ],
+    'hamrant' => [
+      'email' => 'igor.karpilenko@fivejars.com',
+      'full_name' => 'Igor Karpilenko',
+      'position' => 'Tech Lead/Senior Full Stack Developer',
+      'role' => 'administrator',
+      'user_picture' => 'igor.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/hamrant',
+        'https://www.facebook.com/hamrant',
+      ],
+    ],
+    'viki_gorde' => [
+      'email' => 'victoria.gordieieva@fivejars.com',
+      'full_name' => 'Victoria Gordieieva',
+      'position' => 'UX Designer',
+      'role' => 'editor',
+      'user_picture' => 'Viki.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/victoria-gordieieva',
+        'https://www.facebook.com/viki.gorde',
+        'https://www.instagram.com/viki_gorde',
+      ],
+    ],
+    'jenniera' => [
+      'email' => 'jenniera@fivejars.com',
+      'full_name' => 'Yevgeniia Razumnaya',
+      'position' => 'UI/Graphic Designer',
+      'role' => 'editor',
+      'user_picture' => 'Jennie.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/jenniera',
+        'https://www.facebook.com/yevgeniia.razumnaya',
+        'https://www.instagram.com/jennie_ra',
+      ],
+    ],
+    'anprok' => [
+      'email' => 'anprok@fivejars.com',
+      'full_name' => 'Andriy Prokopenko',
+      'position' => 'Full Stack Developer',
+      'role' => 'administrator',
+      'user_picture' => 'Andriy.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/anprok',
+        'https://www.facebook.com/andriuprokopenko',
+      ],
+    ],
+    'akalemulder' => [
+      'email' => 'akalemulder@fivejars.com',
+      'full_name' => 'Michael Ivashchenko',
+      'position' => 'Project Manager',
+      'role' => 'editor',
+      'user_picture' => 'Misha.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/akalemulder',
+        'https://www.facebook.com/aka.le.Mulder',
+      ],
+    ],
+    'dchubar' => [
+      'email' => 'dchubar@fivejars.com',
+      'full_name' => 'Dmitry Chubar',
+      'position' => 'Tech Lead/Senior Full Stack Developer',
+      'role' => 'editor',
+      'user_picture' => 'DimaChubar.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/dchubar',
+        'https://www.instagram.com/_dchubar_/',
+      ],
+    ],
+    'olga_bezhenar' => [
+      'email' => 'olga.bezhenar@fivejars.com',
+      'full_name' => 'Olga Bezhenar',
+      'position' => 'Project Manager',
+      'role' => 'editor',
+      'user_picture' => 'Olya.jpg',
+      'links' => [
+        'https://www.linkedin.com/in/olga-bezhenar-22b613bb',
+      ],
+    ],
+  ];
+
+  $destination_root = 'public://pictures/' . date('Y-m');
+  file_prepare_directory($destination_root, FILE_CREATE_DIRECTORY);
+
+  foreach ($users as $name => $data) {
+    $user = User::create();
+    $user->setPassword(user_password(10));
+    $user->enforceIsNew();
+    $user->setEmail($data['email']);
+    $user->setUsername($name);
+    $user->set('field_show_in_team', TRUE);
+    $user->set('field_weight', $weight);
+    $user->set('field_full_name', $data['full_name']);
+    $user->set('field_position', $data['position']);
+    $user->set('field_social_links', $data['links']);
+    $user->addRole($data['role']);
+
+    // Create file entity for user image.
+    $source = $theme_img_path . $data['user_picture'];
+    $destination = 'public://pictures/' . date('Y-m') . '/' . $data['user_picture'];
+    $uri = file_unmanaged_copy($source, $destination, FILE_EXISTS_REPLACE);
+    $file = File::Create(['uri' => $uri]);
+    $file->save();
+    $user->set('user_picture', [
+      'target_id' => $file->id(),
+      'alt' => $data['full_name'],
+      'title' => $data['full_name'],
+    ]);
+
+    // Save user.
+    $user->activate();
+    $user->save();
+
+    $weight++;
+  }
+}
+
+/**
+ * Update new fields for FJadmin user.
+ */
+function fj_master_update_8005() {
+  $fj_admin = User::load(1);
+  $fj_admin->set('field_full_name', 'Clark Kent');
+  $fj_admin->set('field_position', 'superman');
+
+  // Create file entity for admin image.
+  $source = drupal_get_path('theme', 'fj') . '/build/images/logo/logo_800.png';
+  $destination = 'public://pictures/' . date('Y-m') . '/admin.png';
+  $uri = file_unmanaged_copy($source, $destination, FILE_EXISTS_REPLACE);
+  $file = File::Create(['uri' => $uri]);
+  $file->save();
+  $fj_admin->set('user_picture', [
+    'target_id' => $file->id(),
+    'alt' => 'admin',
+    'title' => 'admin',
+  ]);
+
+  $fj_admin->save();
+}
+
+/**
+ * Create Services page if not exist.
+ */
+function fj_master_update_8006() {
+  $ids = \Drupal::entityQuery('node')
+    ->condition('type', 'landing_page')
+    ->condition('title', 'Services')
+    ->execute();
+
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('node');
+
+  if (empty($ids)) {
+    $node = $storage->create([
+      'title' => 'Services',
+      'type' => 'landing_page',
+    ]);
+    $node->save();
+  }
+
+  // Add full descriptions and images to services.
+  $ids = \Drupal::entityQuery('node')
+    ->condition('type', 'service')
+    ->execute();
+  $nodes = $storage->loadMultiple($ids);
+  foreach ($nodes as $node) {
+    $node->field_service_description_full->setValue('Lorem ipsum dolor sit amet,
+    consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
+    massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,
+    pretium quis, sem.');
+    $node->field_service_image->setValue(['target_id' => 34]);
+    $node->save();
+  }
+}
+
+/**
+ * Copy main menu links to footer menu.
+ */
+function fj_master_update_8007() {
+  $main_menu = \Drupal::entityTypeManager()->getStorage('menu_link_content')
+    ->loadByProperties(['menu_name' => 'main']);
+
+  /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $menu_item */
+  foreach ($main_menu as $menu_item) {
+    if ($menu_item->getTitle() == 'Contact' || $menu_item->getTitle() == 'Home') {
+      continue;
+    }
+
+    $menu_link = MenuLinkContent::create([
+      'title' => $menu_item->getTitle(),
+      'link' => $menu_item->link,
+      'menu_name' => 'footer',
+      'parent' => $menu_item->getParentId(),
+      'description' => $menu_item->get('description'),
+      'expanded' => TRUE,
+      'weight' => $menu_item->getWeight(),
+    ]);
+    $menu_link->save();
+  }
+}
+
+/**
+ * Update extra_classes for layout builder section of 403 and 404 page.
+ */
+function fj_master_update_8009() {
+  $node = node_load(18);
+  /** @var \Drupal\layout_builder\Section $section */
+  $section = $node->layout_builder__layout->getSection(0);
+  $settings = $section->getLayoutSettings();
+  $settings['extra_classes'] = 'fj-advanced fj-403-section';
+  $section->setLayoutSettings($settings);
+  $node->set('layout_builder__layout', $section);
+
+  $node->save();
+
+  $node = node_load(17);
+  $section = $node->layout_builder__layout->getSection(0);
+  $settings = $section->getLayoutSettings();
+  $settings['extra_classes'] = 'fj-advanced fj-404-section';
+  $section->setLayoutSettings($settings);
+  $node->set('layout_builder__layout', $section);
+
+  $node->save();
+}
+
+/**
+ * Create default blog category terms.
+ */
+function fj_master_update_8010() {
+  $items = [
+    ['name' => 'Open Y', 'vid' => 'blog_category'],
+    ['name' => 'Drupal', 'vid' => 'blog_category'],
+    ['name' => 'Development', 'vid' => 'blog_category'],
+    ['name' => 'IOT', 'vid' => 'blog_category'],
+    ['name' => 'Voice Assistance', 'vid' => 'blog_category'],
+    ['name' => 'UX-Design', 'vid' => 'blog_category'],
+    ['name' => 'Traveling', 'vid' => 'blog_category'],
+    ['name' => 'Team', 'vid' => 'blog_category'],
+    ['name' => 'Event', 'vid' => 'blog_category'],
+  ];
+
+  foreach ($items as $item) {
+    Term::create($item)->save();
+  }
+}
+
+/**
+ * Add Youtube social link.
+ */
+function fj_master_update_8020() {
+  $items = [
+    0 => [
+      'title' => t('Youtube'),
+      'link' => 'https://www.youtube.com/channel/UCm6w4T-88mLryxzcuTJe4wQ',
+      'menu_name' => 'social-link',
+      'bundle' => 'menu_link_content',
+    ],
+  ];
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('menu_link_content');
+
+  foreach ($items as $item) {
+    $menu = $storage->create($item);
+    $menu->save();
+  }
+}
+
+/**
+ * Add Twitter social link.
+ */
+function fj_master_update_8021() {
+  $items = [
+    0 => [
+      'title' => t('Twitter'),
+      'link' => 'https://twitter.com/five_jars',
+      'menu_name' => 'social-link',
+      'bundle' => 'menu_link_content',
+    ],
+  ];
+  $storage = \Drupal::entityTypeManager()
+    ->getStorage('menu_link_content');
+
+  foreach ($items as $item) {
+    $menu = $storage->create($item);
+    $menu->save();
+  }
+}

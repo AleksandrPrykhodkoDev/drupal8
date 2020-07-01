@@ -1,0 +1,5 @@
+name: Custom block reference
+type: module
+description: Module provides field type that allows to create reference to custom blocks.
+core: 8.x
+package: Field

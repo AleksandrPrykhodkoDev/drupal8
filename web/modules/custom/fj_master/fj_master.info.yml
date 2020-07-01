@@ -1,0 +1,5 @@
+name: FiveJars Master
+type: module
+description: Master module for updates
+core: 8.x
+package: FiveJars
