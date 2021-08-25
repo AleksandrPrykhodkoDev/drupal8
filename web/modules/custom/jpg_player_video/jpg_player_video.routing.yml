@@ -1,0 +1,7 @@
+jpg_player_video.media_ajax_rerender:
+  path: '/jpg_player_video/ajax/rerender'
+  defaults:
+    _controller: '\Drupal\jpg_player_video\Controller\MediaAjaxRerenderController::rerender'
+  methods: ['POST']
+  requirements:
+    _access: 'TRUE'

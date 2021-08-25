@@ -1,0 +1,22 @@
+field.formatter.settings.jpg_player_video_more_videos:
+  type: mapping
+  label: 'JPG - More Videos format settings'
+  mapping:
+    view_mode:
+      type: string
+      label: 'View mode'
+    link:
+      type: boolean
+      label: 'Show links'
+    ajax_enabled:
+      type: boolean
+      label: 'Enable AJAX support'
+    view_mode_ajax_return:
+      type: string
+      label: 'View mode returned by Ajax'
+    parent_wrapper_selector:
+      type: string
+      label: 'Parent CSS wrapper selector'
+    wrapper_selector_to_replace:
+      type: string
+      label: 'CSS wrapper selector'

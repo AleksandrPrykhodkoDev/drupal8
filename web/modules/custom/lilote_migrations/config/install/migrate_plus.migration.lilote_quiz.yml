@@ -1,0 +1,125 @@
+langcode: en
+status: true
+dependencies: {  }
+id: lilote_quiz
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - CSV
+migration_group: lilote
+label: 'Lilote quiz'
+source:
+  plugin: csv
+  track_changes: true
+  path: /data/lilote_migration_sample.csv
+  delimiter: ','
+  header_row_count: 1
+  ids:
+    - title
+    - chapter
+  constants:
+    langcode: fr
+    file_dest_uri: 'public://lilote_quiz/'
+    type: quiz
+    separator: ' - '
+  fields:
+    -
+      name: published
+      label: published
+    -
+      name: source
+      label: Source
+    -
+      name: level
+      label: Level
+    -
+      name: title
+      label: Title
+    -
+      name: chapter
+      label: Chapter
+    -
+      name: author
+      label: Author
+    -
+      name: editor
+      label: Editor
+    -
+      name: collection
+      label: Collection
+    -
+      name: serie
+      label: Serie
+    -
+      name: isbn
+      label: Isbn
+    -
+      name: accessibility
+      label: Accessibility
+    -
+      name: classification
+      label: Classification
+    -
+      name: theme
+      label: Theme
+    -
+      name: question_number
+      label: Question number
+    -
+      name: question
+      label: Question text
+    -
+      name: correct_answer
+      label: Correct answer
+    -
+      name: wrong_answer_1
+      label: Wrong answer 1
+    -
+      name: wrong_answer_2
+      label: Wrong answer 2
+process:
+  type: constants/type
+  langcode: constants/langcode
+  status: published
+  uid:
+    plugin: default_value
+    default_value: 2
+  title:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: title
+    -
+      plugin: concat
+      source:
+        - title
+        - chapter
+      delimiter: ' - '
+    -
+      plugin: rtrim
+      mask: ' - '
+  book:
+    -
+      plugin: get
+      source:
+        - title
+    -
+      plugin: entity_lookup
+      source: title
+      entity_type: node
+      bundle: book
+      bundle_key: type
+      value_key: title
+  chapter: chapter
+  question:
+    plugin: lilote_migrations_quiz_questions
+    source:
+      - question_number
+      - question
+      - correct_answer
+      - wrong_answer_1
+      - wrong_answer_2
+destination:
+  plugin: 'entity:node'
+migration_dependencies: {  }

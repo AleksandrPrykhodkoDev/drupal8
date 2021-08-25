@@ -1,0 +1,7 @@
+lilote_membership.subscription_product_to_cart:
+  path: '/checkout-initiate'
+  defaults:
+    _title: 'Subscription'
+    _controller: '\Drupal\lilote_membership\Controller\MembershipSubscriptionController::addToCart'
+  requirements:
+    _permission: 'access content'

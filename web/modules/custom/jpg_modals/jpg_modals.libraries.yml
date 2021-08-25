@@ -1,0 +1,8 @@
+modals_popin:
+  version: VERSION
+  js:
+    js/modals_popin.js: {}
+  dependencies:
+    - core/jquery.once
+    - core/jquery.cookie
+    - core/drupal.dialog.ajax

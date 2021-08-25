@@ -1,0 +1,7 @@
+name: Lilote membership
+type: module
+description: Gives a link that adds a subscription product to the cart and redirects the user to the checkout
+package: Custom
+core_version_requirement: ^8 || ^9
+dependencies:
+  - commerce:commerce

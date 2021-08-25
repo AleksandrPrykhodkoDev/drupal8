@@ -1,0 +1,15 @@
+# Custom module library for general purposes.
+player_video:
+  js:
+    js/player-video.js: {}
+  dependencies:
+    - core/drupal
+
+more_videos:
+  js:
+    js/more-videos.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - core/drupal.ajax

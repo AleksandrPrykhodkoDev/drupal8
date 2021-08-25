@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Contains lilote_migrations.module.
+ */
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function lilote_migrations_migration_plugins_alter(&$definitions) {
+  if (isset($definitions['migration_config_deriver:lilote_books'])) {
+    $definitions['migration_config_deriver:lilote_books']['source']['path'] = drupal_get_path('module', 'lilote_migrations') . $definitions['migration_config_deriver:lilote_books']['source']['path'];
+  }
+  if (isset($definitions['migration_config_deriver:lilote_quiz'])) {
+    $definitions['migration_config_deriver:lilote_quiz']['source']['path'] = drupal_get_path('module', 'lilote_migrations') . $definitions['migration_config_deriver:lilote_quiz']['source']['path'];
+  }
+  if (isset($definitions['migration_config_deriver:lilote_schools'])) {
+    $definitions['migration_config_deriver:lilote_schools']['source']['path'] = drupal_get_path('module', 'lilote_migrations') . $definitions['migration_config_deriver:lilote_schools']['source']['path'];
+  }
+}

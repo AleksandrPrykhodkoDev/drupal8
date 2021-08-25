@@ -1,0 +1,9 @@
+# Schema for the configuration files of the asf_common module.
+
+field.formatter.settings.text_summary_or_trimmed_add_dots:
+  type: mapping
+  label: 'Summary or trimmed formatted text with dots display format settings'
+  mapping:
+    trim_length:
+      type: string
+      label: 'Trim length'

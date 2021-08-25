@@ -1,0 +1,7 @@
+name: JPG - Player Video
+type: module
+description: Enhances video player capabilities.
+package: Custom
+core_version_requirement: ^8.8 || ^9
+dependencies:
+  - paragraphs:paragraphs

@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function jpg_modals_theme($existing, $type, $theme, $path) {
+  return [
+    'popin' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+    ],
+  ];
+}

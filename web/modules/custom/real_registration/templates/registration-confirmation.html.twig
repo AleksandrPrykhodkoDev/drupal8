@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation to register participant confirmation.
+ *
+ * Available variables:
+ * - message: Confirmation message.
+ * - link.url: URL to the event node.
+ * - link.label: Label of the link.
+ *
+ * @see template_preprocess_registration_confirmation()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div{{ attributes.addClass('registration-confirmation') }}>
+  {% if message %}
+    <div class="registration-confirmation__message">
+      <h2>{{ message.title }}</h2>
+      <h4>{{ message.body }}</h4>
+    </div>
+  {% endif %}
+  {% if link %}
+  <div class="registration-confirmation__back">
+    <a href="{{ link.url }}" rel="prev">{{ link.label }}</a>
+  </div>
+  {% endif %}
+</div>

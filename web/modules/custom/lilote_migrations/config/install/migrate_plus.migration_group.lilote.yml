@@ -1,0 +1,10 @@
+uuid: 1a299694-5cea-4b4e-ba3f-7ff076a362bb
+langcode: en
+status: true
+dependencies: {  }
+id: lilote
+label: Lilote
+description: 'Contains Lilote contents (books, quizzes, schools) migrations (from CSV files)'
+source_type: CSV
+module: null
+shared_configuration: null

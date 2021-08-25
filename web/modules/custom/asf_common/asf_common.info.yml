@@ -1,0 +1,5 @@
+name: ASF Common
+type: module
+description: Provides common functionalities.
+package: Custom
+core_version_requirement: ^8.8 || ^9

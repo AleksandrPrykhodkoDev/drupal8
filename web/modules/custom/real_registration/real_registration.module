@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for Real - RNG - Registration module.
+ */
+
+use Drupal\real_registration\Form\RegistrationForm;
+use Drupal\rng\EventMetaInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Block\BlockPluginInterface;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function real_registration_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  $entity_types['registration']
+    ->setFormClass('add', RegistrationForm::class);
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function real_registration_entity_extra_field_info() {
+  $extra = [];
+
+  $extra['node']['event']['display']['subscription_link'] = [
+    'label' => t('Subscription link'),
+    'weight' => 100,
+    'visible' => FALSE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function real_registration_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($display->getComponent('subscription_link')) {
+    /** @var \Drupal\rng\EventManagerInterface $event_manager */
+    $event_manager = \Drupal::service('rng.event_manager');
+    $event_meta = $event_manager->getMeta($entity);
+    // Check if registration is allowed.
+    $access_control_handler = \Drupal::entityTypeManager()->getAccessControlHandler('registration');
+    $has_access = $access_control_handler->createAccess('participant', NULL, ['event' => $entity], TRUE);
+    if (!$has_access || $has_access->isForbidden()) {
+      $build['subscription_link'] = [
+        '#type' => 'button',
+        '#value' => t('Subscription not available'),
+        '#attributes' => [
+          'disabled' => 'disabled',
+          'data-view-mode' => $view_mode,
+          'class' => [
+            'subscription-link',
+            'button--fixed-height',
+            'disabled-link',
+          ],
+        ],
+      ];
+    }
+    else {
+      $url = Url::fromRoute(
+        'rng.event.node.register',
+        [
+          'node' => $entity->id(),
+          'registration_type' => 'participant',
+        ]
+      );
+      $build['subscription_link'] = [
+        '#type' => 'link',
+        '#url' => $url,
+        '#title' => t('Subscription'),
+        '#attributes' => [
+          'data-view-mode' => $view_mode,
+          'class' => [
+            'subscription-link',
+            'button--fixed-height',
+          ],
+        ],
+      ];
+    }
+    if ($event_meta->getCapacity() != EventMetaInterface::CAPACITY_UNLIMITED) {
+      $build['subscription_link']['#cache']['tags'][] = 'registrant_list';
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function real_registration_theme($existing, $type, $theme, $path) {
+  return [
+    // Participant confirmation template.
+    'registration_confirmation' => [
+      'variables' => [
+        'message' => [],
+        'link' => [],
+      ],
+      'template' => 'registration-confirmation',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_block_build_BASE_BLOCK_ID_alter().
+ */
+function real_registration_block_build_local_tasks_block_alter(array &$build, BlockPluginInterface $block) {
+  if (\Drupal::currentUser()->isAnonymous() && !empty($build['#primary']) && !empty($build['#theme'])) {
+    unset($build['#primary']);
+    unset($build['#theme']);
+    if (isset($build['#secondary'])) {
+      unset($build['#secondary']);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function real_form_preprocess_status_messages(&$variables) {
+  if (\Drupal::routeMatch()->getRouteName() == 'rng.event.node.register') {
+    // Remove drupal status messages.
+    unset($variables["message_list"]);
+  }
+}

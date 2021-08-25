@@ -1,0 +1,13 @@
+block.settings.jpg_modal_popin_block:
+  type: block_settings
+  label: 'JPG Modals - Modal popin Block'
+  mapping:
+    popin_enabled:
+      type: boolean
+      label: 'Popin enabled'
+    popin_times_to_show:
+      type: integer
+      label: 'Times to show the modal'
+    popin_page_manager_variant:
+      type: string
+      label: 'Page manager variant to render'

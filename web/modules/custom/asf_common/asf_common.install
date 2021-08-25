@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the ASF common module.
+ */
+
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_update_N().
+ */
+function asf_common_update_8001(&$sandbox) {
+  // Update path alias for basic_page and landing_page content types.
+  $ct_patterns = ['basic_page' => 'ct_basic_page', 'landing_page' => 'ct_landing_page'];
+  $storage = \Drupal::service('entity_type.manager')->getStorage('node');
+
+  foreach ($ct_patterns as $ct => $pattern) {
+    $entity_ids = $storage->getQuery()
+      ->condition('type', $ct)
+      ->execute();
+    $entities = $storage->loadMultiple($entity_ids);
+
+    foreach ($entities as $node) {
+      $url_alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
+      $path = \Drupal::entityTypeManager()
+        ->getStorage('path_alias')
+        ->loadByProperties(['alias' => $url_alias]);
+      /** @var \Drupal\path_alias\Entity\PathAlias $path_entity */
+      if ($path_entity = $path[implode("", array_keys($path))]) {
+        /** @var \Drupal\pathauto\Entity\PathautoPattern $pattern_entity */
+        $pattern_entity = \Drupal::entityTypeManager()->getStorage('pathauto_pattern')->load($pattern);
+        $token = Drupal::token();
+        $string_pattern = $token->replace($pattern_entity->get('pattern'), [
+          'node' => $node,
+        ]);
+        $new_alias = '/' . \Drupal::service('pathauto.alias_cleaner')->cleanString($string_pattern);
+        $path_entity->setAlias($new_alias);
+        $path_entity->save();
+      }
+    }
+  }
+}
+
+/**
+ * Update field storage settings for Title field of Media.
+ */
+function asf_common_update_8002(&$sandbox) {
+  FieldStorageConfig::loadByName('media', 'title')
+    ->setSetting('max_length', 80)
+    ->save();
+}
+
+/**
+ * Installs sendinblue module.
+ */
+function asf_common_update_8003() {
+  \Drupal::service('module_installer')->install(['sendinblue']);
+}

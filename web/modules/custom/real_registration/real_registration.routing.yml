@@ -1,0 +1,13 @@
+entity.node.real_registration.confirmation:
+  path: '/node/{node}/register/participant/confirmation'
+  defaults:
+    _controller: '\Drupal\real_registration\Controller\RegistrationEntityController::confirmation'
+    _title_callback: '\Drupal\real_registration\Controller\RegistrationEntityController::title'
+    operation: view
+  options:
+    parameters:
+      node:
+        type: 'entity:node'
+  requirements:
+    # Access denied is available to all users.
+    _access: 'TRUE'

@@ -1,0 +1,5 @@
+name: 'JPG modals'
+type: module
+description: 'Allow to define modals behaviour on JPG'
+package: Custom
+core_version_requirement: ^8 || ^9

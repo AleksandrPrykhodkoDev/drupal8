@@ -1,0 +1,6 @@
+name: Real Campus - ID field
+type: module
+description: A module to have a custom id field in content types.
+package: Real
+core: 8.x
+core_version_requirement: ^8 || ^9
