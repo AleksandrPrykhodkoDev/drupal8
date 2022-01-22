@@ -1,0 +1,25 @@
+weather.icons:
+  version: VERSION
+  css:
+    theme:
+      assets/css/weather-icons.min.css: { }
+
+libraries.mapbox-gl-js:
+  version: VERSION
+  js:
+    https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js: { external: true }
+    https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js: { external: true }
+    https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js: { external: true }
+  css:
+    layout:
+      https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css: { external: true }
+
+paragraph_weather.mapbox_gl:
+  version: 1.x
+  js:
+    assets/js/nunavut_mapbox.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - nunavut_core/libraries.mapbox-gl-js

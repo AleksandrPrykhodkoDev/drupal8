@@ -1,0 +1,140 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Nunavut: Core module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function nunavut_core_uninstall() {
+  \Drupal::configFactory()
+    ->getEditable('nunavut_core.settings')
+    ->delete();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Clear the cache before creating discovery_nunavut media type.
+ */
+function nunavut_core_update_9101(&$sandbox) {
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Update operators.
+ */
+function nunavut_core_update_9102(&$sandbox) {
+  $entities = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'operator']);
+
+  /** @var \Drupal\node\Entity\Node $node */
+  foreach ($entities as $node) {
+    if (
+      $node->hasField('field_operator_web_url')
+      && !$node->get('field_operator_web_url')->isEmpty()
+    ) {
+      /** @var \Drupal\link\Plugin\Field\FieldType\LinkItem $link */
+      if ($link = $node->get('field_operator_web_url')->first()) {
+        $values = $link->getValue();
+
+        if (!parse_url($values['uri'], PHP_URL_SCHEME)) {
+          $link->setValue([
+            'uri' => 'http://' . $values['uri'],
+            'title' => $values['title'],
+          ]);
+
+          $node->save();
+        }
+      }
+    }
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Update left border.
+ */
+function nunavut_core_update_9103(&$sandbox) {
+  $results = \Drupal::entityQuery('node')
+    ->condition('field_background_color', 'bg-color-red', '!=')
+    ->execute();
+
+  $entities = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadMultiple($results);
+
+  /** @var \Drupal\node\Entity\Node $node */
+  foreach ($entities as $node) {
+    $node->set('field_background_color', 'bg-color-red');
+    $node->save();
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Update packages.
+ */
+function nunavut_core_update_9104(&$sandbox) {
+  $entities = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'package']);
+
+  /** @var \Drupal\node\Entity\Node $node */
+  foreach ($entities as $node) {
+    if ($node->hasField('field_post_price_label')) {
+      $node->set('field_post_price_label', 'Plus GST / Person');
+      $node->save();
+    }
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Update packages.
+ */
+function nunavut_core_update_9105(&$sandbox) {
+  $entities = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'package']);
+
+  $entities += \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'page']);
+
+  $entities += \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'story']);
+
+  $entities += \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->loadByProperties(['type' => 'operator']);
+
+  /** @var \Drupal\node\Entity\Node $node */
+  foreach ($entities as $node) {
+    if ($node->hasField('path')) {
+      $path = $node->get('path')->getValue();
+      if (!isset($path[0]['pathauto']) && $path[0]['path'] = '') {
+        $path[0]['pathauto'] = 1;
+        $node->set('path', $path);
+        $node->save();
+      }
+    }
+  }
+
+  drupal_flush_all_caches();
+}

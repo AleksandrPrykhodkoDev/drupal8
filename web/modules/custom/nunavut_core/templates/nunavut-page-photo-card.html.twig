@@ -1,0 +1,15 @@
+{% set img_attributes = create_attribute()
+  .addClass('img-fluid lazy-img')
+  .setAttribute('alt',card.image_properties.alt.value)
+  .setAttribute('src',card.image_properties.style.scale_192.base64)
+  .setAttribute('data-src',card.image_properties.url)
+  .setAttribute('data-webp',card.image_properties.style.towebp.url)
+%}
+<div class="node--view-mode-photo">
+  <div class="card-rectangle-wrapper page-card">
+      <img{{ img_attributes }}/>
+      <h3{{ create_attribute().addClass('card-title') }}>
+        <a href="{{ url }}" rel="bookmark">{{ title }}</a>
+      </h3>
+  </div>
+</div>

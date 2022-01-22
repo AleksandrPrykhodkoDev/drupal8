@@ -1,0 +1,27 @@
+services:
+  nunavut_core.media_helper:
+    class: Drupal\nunavut_core\MediaHelper
+    arguments: ['@entity_type.manager', '@config.factory', '@file_system', '@token', '@file.mime_type.guesser']
+  nunavut_breadcrumb:
+    class: Drupal\nunavut_core\Breadcrumb\NunavutBreadcrumb
+    arguments: ['@entity_type.manager', '@config.factory', '@path.current', '@current_user', '@language_manager', '@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@title_resolver', '@path.matcher', '@path_alias.manager']
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
+  nunavut_core.page_helper:
+    class: Drupal\nunavut_core\PageHelper
+    arguments: ['@entity_type.manager', '@config.factory', '@current_route_match', '@request_stack', '@nunavut_core.media_helper', '@title_resolver', '@renderer', '@path_alias.manager', '@address.country_repository', '@address.subdivision_repository']
+  nunavut_core.redirects:
+    class: Drupal\nunavut_core\EventSubscriber\NunavutRedirects
+    arguments: ['@config.factory']
+    tags:
+      - {name: event_subscriber}
+  nunavut_core.http_client_weather:
+    class: GuzzleHttp\Client
+    factory: [ '@nunavut_core.http_client_weather_factory', 'fromOptions' ]
+  nunavut_core.http_client_weather_factory:
+    class: Drupal\nunavut_core\Http\WeatherClientFactory
+    arguments: [ '@config.factory', '@http_handler_stack' ]
+
+  nunavut_core.weather.gc.ca:
+    class: Drupal\nunavut_core\WeatherGcCa
+    arguments: ['@http_client', '@config.factory', '@entity_type.manager', '@database', '@cache.default', '@token', '@title_resolver', '@request_stack', '@queue', '@path.matcher']

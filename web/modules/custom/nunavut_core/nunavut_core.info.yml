@@ -1,0 +1,6 @@
+name: 'Nunavut: Core'
+type: module
+description: 'The core module for "www.DestinationNunavut.com" site.'
+package: Nunavut
+core: 8.x
+core_version_requirement: ^8 || ^9

@@ -1,0 +1,47 @@
+system.admin_config_nunavut:
+  path: '/admin/config/nunavut'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Nunavut Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+nunavut_core.settings_form:
+  path: '/admin/config/nunavut/settings'
+  defaults:
+    _form: '\Drupal\nunavut_core\Form\SettingsForm'
+    _title: 'Nunavut Core Settings'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+nunavut_core.discovery_ajax:
+  path: '/nunavut-core/discovery-ajax/{node}'
+  defaults:
+    _title: 'Discovery'
+    _controller: '\Drupal\nunavut_core\Controller\DiscoveryAjaxSlider::build'
+    node: null
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      node:
+        type: entity:node
+
+nunavut_core.page_settings:
+  path: '/admin/config/nunavut/page-settings'
+  defaults:
+    _title: 'Default Pade Settings'
+    _form: 'Drupal\nunavut_core\Form\PageSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+nunavut_core.search:
+  path: '/search/{search}'
+  defaults:
+    _controller: '\Drupal\nunavut_core\Controller\NunavutSearchController::pageSearch'
+    _title: 'Search'
+    search: ''
+  requirements:
+    _permission: 'access content'

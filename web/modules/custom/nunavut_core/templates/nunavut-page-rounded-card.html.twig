@@ -1,0 +1,48 @@
+{{ attach_library('classy/node') }}
+
+{% set card_main_attribures = create_attribute()
+  .addClass([
+    'card-rounded',
+    card_border
+  ])
+%}
+{% set card_inner_attributes = create_attribute() %}
+{% if card_bg_url.url %}
+  {% set card_inner_classes = [
+    'card-inner',
+    'lazy-bg'
+  ] %}
+  {% set bg_url_string = "url('#{ card_bg_url.style.scale_192.base64 }')" %}
+  {% set bg_style = "background-image: #{ bg_url_string }" %}
+  {% set card_inner_attributes = card_inner_attributes
+    .setAttribute('data-src', card_bg_url.url)
+    .setAttribute('data-webp', card_bg_url.style.towebp.url)
+    .setAttribute('style', bg_style)
+    .addClass(card_inner_classes)
+  %}
+{% endif %}
+{% set article_classes = create_attribute()
+  .addClass(['media--type-card'])
+  .setAttribute('data-aos','fade-up')
+  .setAttribute('data-aos-easing','linear')
+  .setAttribute('data-aos-duration','750')
+  .setAttribute('data-aos-anchor-placement','top-center')
+%}
+{% set text = card_content|render|striptags %}
+<article{{ article_classes }}>
+  <div class="card-rounded-wrapper">
+    <div{{ card_main_attribures }}>
+      <div{{ card_inner_attributes }}>
+        <div class="card-content-gradient"></div>
+        <div class="card-content">
+          <h2 class="card-title">{{ title }}</h2>
+          <div class="card-teaser">{{ text|length > 100 ? text|slice(0, 100)|raw ~ '...' : text|raw }}</div>
+          <div class="card-bottom">
+            <div class="card-button"><a href="{{ card_button.url }}">{{ card_button.text }}</a> </div>
+            <div class="card-slick-arrows"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

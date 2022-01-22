@@ -1,0 +1,19 @@
+nunavut_core.group.admin:
+  title: 'Nunavut Settings'
+  route_name: system.admin_config_nunavut
+  parent: system.admin_config
+  description: 'Nunavut Settings'
+  weight: -999
+
+nunavut_core.settings_form:
+  title: 'Nunavut Core Settings'
+  route_name: nunavut_core.settings_form
+  description: 'Nunavut Core Settings'
+  parent: nunavut_core.group.admin
+  weight: 99
+
+nunavut_core.page_settings:
+  title: Default Pade Settings
+  parent: nunavut_core.group.admin
+  route_name: nunavut_core.page_settings
+  weight: 10

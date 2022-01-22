@@ -1,0 +1,72 @@
+{#
+/**
+ * @file
+ * Template for the weather list block
+ *
+ * Available weatheriables:
+ * - weather: array of weather list.
+ */
+ weather.location
+#}
+{% spaceless %}
+  <div class="weather">
+
+    <div class="weather-item weather-city">
+      <h2>{{ 'Current Weather & Stats'|t }}</h2>
+    </div>
+
+    {% if weather.temperature and weather.temperature_unit %}
+      <div class="weather-item weather-temperature">
+        <span class="label"> {{ 'Temp'|t }} </span>
+        <span class="data">{{ weather.temperature }} &deg;{{ weather.temperature_unit }}</span>
+      </div>
+    {% endif %}
+
+    {% if weather.image_code %}
+      <div class="weather-item weather-image">
+        <span class="label">{{ weather.text }} </span>
+        <span class="data">
+          <i class="wi wi-yahoo-{{ weather.image_code }}"></i>
+        </span>
+      </div>
+    {% endif %}
+
+    {% if weather.gc_image_code and weather.gc_image_code != 'wi-na' %}
+      <div class="weather-item weather-image">
+        <span class="label">{{ weather.text }}</span>
+        <span class="data">
+          <i class="wi {{ weather.gc_image_code }}"></i>
+        </span>
+      </div>
+    {% endif %}
+
+    {% if weather.humidity %}
+      <div class="weather-item weather-humidity">
+        <span class="label">{{ 'Humidity'|t }} </span>
+        <span class="data">{{ weather.humidity }}</span>
+      </div>
+    {% endif %}
+
+    {% if weather.visibility %}
+      <div class="weather-item weather-visibility">
+        <span class="label">{{ 'Visibility'|t }} </span>
+        <span class="data">{{ weather.visibility }}</span>
+      </div>
+    {% endif %}
+
+    {% if weather.sunrise %}
+      <div class="weather-item weather-sunrise">
+        <span class="label">{{ 'Sunrise'|t }} </span>
+        <span class="data">{{ weather.sunrise }}</span>
+      </div>
+    {% endif %}
+
+    {% if weather.sunset %}
+      <div class="weather-item weather-sunset">
+        <span class="label">{{ 'Sunset'|t }} </span>
+        <span class="data">{{ weather.sunset }}</span>
+      </div>
+    {% endif %}
+
+  </div>
+{% endspaceless %}

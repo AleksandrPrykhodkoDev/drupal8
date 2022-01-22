@@ -1,0 +1,26 @@
+{% if not tag %}
+  {% set tag='div' %}
+{% endif %}
+{% set bg_style = "" %}
+{% set container_attributes = create_attribute()
+  .addClass(container_class)
+%}
+{% if background_media %}
+  {% if background_media.type == 'image' %}
+    {% if background_media.source.url %}
+      {% set bg_url = background_media.source.style.scale_192.base64 %}
+      {% set bg_style = "background-image: url('#{ bg_url }')" %}
+      {% set container_attributes = container_attributes
+        .setAttribute('style', bg_style)
+        .setAttribute('data-src', page_background_image.url)
+        .setAttribute('data-webp', page_background_image.style.towebp.url)
+        .addClass('lazy-bg')
+      %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+<{{ tag }}{{ container_attributes }}>
+{% if title_suffix %}{{ title_suffix }}{% endif %}
+  {{ content }}
+</{{ tag }}>

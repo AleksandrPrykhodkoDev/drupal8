@@ -1,0 +1,82 @@
+{% if operator.contact.title|render|striptags|trim in not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title">
+      {{ 'Contact'|t }}
+    </div>
+    <div class="contact-item-value">
+      {{ operator.contact.title|render|striptags|trim }}
+    </div>
+  </div>
+{% endif %}
+
+{% if operator.contact.address.address_line1|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title">{{ 'Address'|t }}</div>
+    <div class="contact-item-value">{{ operator.contact.address.address_line1|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.address.address_line2|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title"></div>
+    <div class="contact-item-value">{{ operator.contact.address.address_line2|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.address.postal_code|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title"></div>
+    <div class="contact-item-value">{{ operator.contact.address.postal_code|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.address.locality|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title"></div>
+    <div class="contact-item-value">{{ operator.contact.address.locality|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.address.administrative_area|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title"></div>
+    <div class="contact-item-value">{{ operator.contact.address.administrative_area|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.address.country|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title"></div>
+    <div class="contact-item-value">{{ operator.contact.address.country|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.phone|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title">{{ 'Phone'|t }}</div>
+    <div class="contact-item-value">{{ operator.contact.phone|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.alt_phone|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title">{{ 'Alt Phone'|t }}</div>
+    <div class="contact-item-value">{{ operator.contact.alt_phone|render|striptags|trim }}</div>
+  </div>
+{% endif %}
+
+{% if operator.contact.email|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title">{{ 'Email'|t }}</div>
+    <div class="contact-item-value">
+      <a href="mailto:{{ operator.contact.email|render|striptags|trim }}">{{ operator.contact.email|render|striptags|trim }}</a>
+    </div>
+  </div>
+{% endif %}
+
+{% if operator.contact.web.title|render|striptags|trim is not empty %}
+  <div class="contact-item">
+    <div class="contact-item-title">{{ 'Website'|t }}</div>
+    <div class="contact-item-value"><a href="{{ operator.contact.web.url }}">{{ operator.contact.web.title }}</a></div>
+  </div>
+{% endif %}
