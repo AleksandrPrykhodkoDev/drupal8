@@ -1,0 +1,18 @@
+<div class="balance-setting">
+   <h2 class="page-title">{{ department_balance_title }}</h2>
+   <h4 class="mg-b_10">{{ 'Admin departments'|t }}</h4>
+   <a href="{{ url_add_admin_department }}" class="mg-b_10 use-ajax btn-info btn approve-btn"
+      data-dialog-type="modal">{{ 'Add admin departments'|t }}</a>
+   {{ block_admin_departments }}
+
+   <h4 class="mg-b_10">{{ 'Departments'|t }}</h4>
+   <a href="{{ url_add_department }}" class="mg-b_10 use-ajax btn-info btn approve-btn"
+      data-dialog-type="modal">{{ 'Add departments'|t }}</a>
+   {{ block_departments }}
+
+   <h4 class="mg-b_10">{{ 'Staff'|t }}</h4>
+   <a href="{{ url_add_staff }}" class="mg-b_10 use-ajax btn-info btn approve-btn"
+      data-dialog-type="modal">{{ 'Add staff'|t }}</a>
+   {{ block_staff }}
+   <a href="{{ url_view_details }}" class="btn btn-lg btn-success">{{ 'Save'|t }}</a>
+</div>

@@ -1,0 +1,49 @@
+<div class="department-balance-details">
+  <div class="page-title">
+    <h2>{{ balance_name }}</h2>
+  </div>
+  {% if is_ceo %}
+    <div class="balance-settings mg-b_10">
+      <h4>{{ 'Setting access to the balance'|t }}
+        <a href="{{ url_balance_setting }}" class="btn btn-info fa fa-cog round-b-size"
+           data-dialog-options="{&quot;width&quot;:1000}" data-dialog-type="modal" data-toggle="tooltip" data-placement="top" data-original-title="Settings"></a></h4>
+    </div>
+  {% endif %}
+  {% if admin_departments_names or departments_names or staff_names %}
+  <div class="total-balance mg-b_10">
+    <h3>{{ 'Access to balance'|t }}</h3>
+  </div>
+  {% endif %}
+  <div class="admin-department-names mg-b_5">
+    {% if admin_departments_names %}
+      <h4>{{ 'Admin departments:'|t }}</h4>
+      <p>{{ admin_departments_names }}</p>
+    {% endif %}
+  </div>
+  <div class="department-names mg-b_5">
+    {% if departments_names %}
+      <h4>{{ 'Departments:'|t }}</h4>
+      <p>{{ departments_names }}</p>
+    {% endif %}
+  </div>
+  <div class="staff-names mg-b_5">
+    {% if staff_names %}
+      <h4>{{ 'Staff:'|t }}</h4>
+      <p>{{ staff_names }}</p>
+    {% endif %}
+  </div>
+  <div class="total-balance mg-b_10">
+    <h4>{{ 'Balance info'|t }}:</h4>
+  </div>
+  <div class="total-balance mg-b_10">
+    <p>{{ 'Total balance: '|t}}{{ total_balance }} {{ currency_balance_value }}</p>
+  </div>
+  <div class="transaction-actions mg-b_10">
+    <a href="{{ url_add_income_transaction }}" class="use-ajax btn-info btn approve-btn" data-dialog-type="modal">{{ 'Add income transaction'|t }}</a>
+    <a href="{{ url_add_expense_transaction }}" class="use-ajax btn-info btn approve-btn" data-dialog-type="modal">{{ 'Add expense transaction'|t }}</a>
+  </div>
+  {{ render_view }}
+</div>
+
+
+

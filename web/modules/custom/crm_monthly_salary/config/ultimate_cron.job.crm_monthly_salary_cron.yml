@@ -1,0 +1,30 @@
+uuid: 836c30b7-a9b9-4878-b851-ca19a55facdd
+langcode: en
+status: true
+dependencies:
+  module:
+    - crm_monthly_salary
+title: 'CRM:Monthly Salary - Count Salary per User.'
+id: crm_monthly_salary_cron
+weight: 0
+module: crm_monthly_salary
+callback: crm_monthly_salary_cron
+scheduler:
+  id: crontab
+  configuration:
+    rules:
+      - '0 9,12,16 1-15 * *'
+    catch_up: 0
+launcher:
+  id: serial
+  configuration:
+    timeouts:
+      lock_timeout: 3600
+    launcher:
+      thread: 0
+logger:
+  id: database
+  configuration:
+    method: '3'
+    expire: 1209600
+    retain: 1000

@@ -1,0 +1,22 @@
+services:
+  crm_department_balance.department_balance_subscriber:
+    class: Drupal\crm_department_balance\EventSubscriber\DepartmentBalanceSubscriber
+    arguments: [ '@module_handler' ]
+    tags:
+      - { name: event_subscriber }
+
+  crm_department_balance.department_balance_service:
+    class: Drupal\crm_department_balance\DepartmentBalanceService
+    arguments: [ '@entity_type.manager', '@renderer', '@current_user', '@crm_payments.payment_service', '@crm_statements.statement_service' ]
+
+  crm_department_balance.balance_access:
+    class: Drupal\crm_department_balance\Access\BalanceAccessCheck
+    arguments: [ '@crm_department_balance.department_balance_service' ]
+    tags:
+      - { name: access_check, applies_to: _balance_access_check }
+
+  crm_department_balance.transaction_access:
+    class: Drupal\crm_department_balance\Access\TransactionAccessCheck
+    arguments: [ '@crm_department_balance.department_balance_service', '@entity_type.manager' ]
+    tags:
+      - { name: access_check, applies_to: _transaction_access_check }

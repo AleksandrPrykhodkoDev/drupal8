@@ -1,0 +1,20 @@
+crm_monthly_salary.show_exchanges_rate_page:
+  path: '/salary-exchanges-rate'
+  defaults:
+    _controller: '\Drupal\crm_monthly_salary\Controller\MonthlySalaryController::showExchangesRatePage'
+  requirements:
+    _role: 'ceo + administrative_head'
+
+crm_monthly_salary.add_exchange_rate:
+  path: '/add-exchange-rate'
+  defaults:
+    _controller: '\Drupal\crm_monthly_salary\Controller\MonthlySalaryController::addExchangeRate'
+  requirements:
+    _role: 'ceo + administrative_head'
+
+crm_monthly_salary.edit_exchange_rate:
+  path: '/edit-exchange-rate/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_monthly_salary\Controller\MonthlySalaryController::editExchangeRate'
+  requirements:
+    _role: 'ceo + administrative_head'

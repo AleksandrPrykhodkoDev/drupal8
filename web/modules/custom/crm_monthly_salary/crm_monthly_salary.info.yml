@@ -1,0 +1,5 @@
+name: CRM Monthly Salary
+type: module
+description: This module provide functionality to count salary.
+core_version_requirement: ^8 || ^9
+package: CRM

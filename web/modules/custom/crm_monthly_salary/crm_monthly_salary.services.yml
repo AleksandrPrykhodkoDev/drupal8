@@ -1,0 +1,10 @@
+services:
+  crm_monthly_salary.monthly_salary_service:
+    class: Drupal\crm_monthly_salary\MonthlySalaryService
+    arguments: ['@entity_type.manager', '@current_user', '@date.formatter', '@da_notification.send_mail_service', '@staff_module.vacations_service', '@crm_action_log.log']
+
+  crm_monthly_salary.monthly_salary_subscriber:
+    class: Drupal\crm_monthly_salary\EventSubscriber\MonthlySalarySubscriber
+    arguments: [ '@module_handler' ]
+    tags:
+      - { name: event_subscriber }

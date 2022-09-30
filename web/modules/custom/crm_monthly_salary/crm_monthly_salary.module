@@ -1,0 +1,66 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Callback function for CRM:Monthly Salary - Count Salary per User.
+ */
+function crm_monthly_salary_cron() {
+  $usd_machine_name = 'dollars';
+  $non_usd_staff = [];
+  $month_salary_service = \Drupal::service('crm_monthly_salary.monthly_salary_service');
+  $prev_period_id = $month_salary_service->getPreviousPeriodId();
+  $staff_ids = $month_salary_service->getUsersToCalculateSalary();
+  $departments_without_calendar = [];
+
+  foreach ($staff_ids as $employee_id) {
+    $agreements_data = $month_salary_service->getAgreementsFromBillablePeriod($employee_id, $prev_period_id);
+    if (empty($agreements_data)) {
+      continue;
+    }
+
+    $department_id = current($agreements_data)['department_id'];
+
+    if (isset($department_id)) {
+      if (key_exists($department_id, $departments_without_calendar)) {
+        continue;
+      }
+      else {
+        $calendar = $month_salary_service->getDepartmentCalendarId($department_id);
+      }
+    }
+
+    $have_salary = $month_salary_service->checkIfWeHavePaymentStatementForThisEmployee($employee_id);
+    if (!empty($calendar)) {
+      if (!$have_salary) {
+        foreach ($agreements_data as $agreement_data) {
+          $currency = $agreement_data['currency'];
+          $salary_data = $month_salary_service->getSalaryData($agreement_data, $employee_id);
+
+          if ($currency === $usd_machine_name) {
+            $month_salary_service->createPaymentStatement($employee_id, $salary_data);
+          }
+          if ($currency !== $usd_machine_name) {
+            $non_usd_staff[] = [
+              'currency' => $currency,
+              'employee_id' => $employee_id,
+              'department_id' => $department_id,
+              'salary_data' => $salary_data,
+            ];
+          }
+        }
+      }
+    }
+    else {
+      $departments_without_calendar[$department_id] = $department_id;
+    }
+  }
+  if (count($non_usd_staff) > 0) {
+    $month_salary_service->calculateSalaryForNonUsdStaff($non_usd_staff);
+  }
+
+  if (count($departments_without_calendar) > 0) {
+    $month_salary_service->sendNotificationsAboutEmptyDepartmentCalendar($departments_without_calendar);
+  }
+
+}

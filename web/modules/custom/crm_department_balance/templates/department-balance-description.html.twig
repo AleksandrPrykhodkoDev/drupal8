@@ -1,0 +1,17 @@
+<div>
+  {% if create_by %}
+    <p><strong>{{ 'Create by'|t }} - {{ create_by }}</strong></p>
+  {% endif %}
+
+  {% if transaction_for %}
+    <p>{{ transaction_for }}</p>
+  {% endif %}
+
+  {% if comment %}
+    <p>{{ 'Comment'|t }}: {{ comment }}</p>
+  {% endif %}
+
+  {% if edited_date %}
+    <p>{{ 'Edited'|t }}: {{ edited_date }}</p>
+  {% endif %}
+</div>

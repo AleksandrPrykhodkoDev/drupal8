@@ -1,0 +1,123 @@
+crm_department_balance.department_balance:
+  path: '/company-balances'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::showDepartmentBalance'
+  requirements:
+    _access: 'TRUE'
+
+crm_department_balance.head_department_balance:
+  path: '/company-balances/add'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::addDepartmentBalance'
+    _title: 'Add Balance'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.delete_department_balance:
+  path: '/company-balances/{nid}/delete'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::deleteDepartmentBalance'
+    _title: 'Delete Balance'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.view_details_balance:
+  path: '/view-details-balance/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::showDetailsBalance'
+  requirements:
+    _balance_access_check: 'TRUE'
+
+crm_department_balance.settings_balance:
+  path: '/view-details-balance/{nid}/settings'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::settingsBalance'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.add_income_transaction:
+  path: '/add-income-transaction/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::addIncomeTransaction'
+    _title: 'Add income transaction'
+  requirements:
+    _balance_access_check: 'TRUE'
+
+crm_department_balance.edit_department_balance:
+  path: '/company-balances/{nid}/edit'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::editDepartmentBalance'
+    _title: 'Edit Balance'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.edit_department_transaction:
+  path: '/edit-company-transaction/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::editDepartmentTransaction'
+  requirements:
+    _transaction_access_check: 'TRUE'
+
+crm_department_balance.remove_transaction:
+  path: '/remove-balance-transaction/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::removeDepartmentTransaction'
+    _title: 'Remove balance transaction'
+  requirements:
+    _transaction_access_check: 'TRUE'
+
+crm_department_balance.add_expense_transaction:
+  path: '/add-expense-transaction/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::addExpenseTransaction'
+    _title: 'Add expense transaction'
+  requirements:
+    _balance_access_check: 'TRUE'
+
+crm_department_balance.remove_admin_department_balance:
+  path: '/remove-admin-department/{nid}/{target_id}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::removeAdminDepartmentBalance'
+    _title: 'Remove admin department'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.remove_department_balance:
+  path: '/remove-department/{nid}/{target_id}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::removeDepartmentBalance'
+    _title: 'Remove department'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.remove_staff_balance:
+  path: '/remove-staff/{nid}/{uid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::removeStaffBalance'
+    _title: 'Remove staff'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.admin_department_settings:
+  path: '/admin-department-settings/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::adminDepartmentSettings'
+    _title: 'Balance Settings'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.department_settings:
+  path: '/department-settings/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::departmentSettings'
+    _title: 'Balance Settings'
+  requirements:
+    _role: 'ceo'
+
+crm_department_balance.staff_settings:
+  path: '/staff-settings/{nid}'
+  defaults:
+    _controller: '\Drupal\crm_department_balance\Controller\DepartmentBalanceController::staffSettings'
+    _title: 'Balance Settings'
+  requirements:
+    _role: 'ceo'

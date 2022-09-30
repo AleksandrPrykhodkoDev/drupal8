@@ -1,0 +1,5 @@
+<h2>{{ 'Company Balances'|t }}</h2>
+{% if is_ceo %}
+<a href="{{ url_add_balance }}" class="mg-t_10 mg-b_10 use-ajax btn-info btn approve-btn" data-dialog-type="modal">{{ 'Add balance'|t }}</a>
+{% endif %}
+{{ block }}

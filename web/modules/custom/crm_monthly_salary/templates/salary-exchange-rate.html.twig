@@ -1,0 +1,12 @@
+<div class="exchange-rate general">
+  <h2 class="page-title">{{ title }}</h2>
+  <div class="filter-pager">
+    {{ prev_period_link }}
+    {{ current_period }}
+    {{ next_period_link }}
+  </div>
+  <div class="add-rate-link">
+    <a href="{{ path('crm_monthly_salary.add_exchange_rate') }}" class="use-ajax btn-info btn approve-btn" data-dialog-type="modal">{{ 'Add Salary exchange rate'|t }}</a>
+  </div>
+  {{ block_data }}
+</div>
